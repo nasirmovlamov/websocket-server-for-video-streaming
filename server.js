@@ -6,11 +6,13 @@ const PORT = 8080;
 
 
 const server = express()
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 server.get('/', (req, res) => {
   res.send('Hello World!');
 });
+
+server.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
 
 // const app = express();
 // app.use(cors());
@@ -33,7 +35,7 @@ server.get('/', (req, res) => {
 
 let webSocket=require('ws')
 
-var wsPing=new webSocket.Server(server)
+var wsPing=new webSocket.Server({server})
 
 const clients = new Set()
 
