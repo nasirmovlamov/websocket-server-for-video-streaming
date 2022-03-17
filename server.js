@@ -2,6 +2,12 @@ const express = require('express');
 const cors  = require('cors');
 
 
+const PORT = 8080;
+const INDEX = '/index.html';
+
+const server = express()
+  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 // const app = express();
 // app.use(cors());
@@ -24,7 +30,7 @@ const cors  = require('cors');
 
 let webSocket=require('ws')
 
-var wsPing=new webSocket.Server({port:8080})
+var wsPing=new webSocket.Server(server)
 
 const clients = new Set()
 
