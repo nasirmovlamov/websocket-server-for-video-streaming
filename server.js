@@ -3,11 +3,14 @@ const cors  = require('cors');
 
 
 const PORT = 8080;
-const INDEX = '/index.html';
+
 
 const server = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+server.get('/', (req, res) => {
+  res.send('Hello World!');
+});
 
 // const app = express();
 // app.use(cors());
