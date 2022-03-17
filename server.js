@@ -2,13 +2,14 @@ const express = require('express');
 const cors  = require('cors');
 
 
+
 const PORT = process.env.PORT || 3000;
 
 
 const server = express()
 
 server.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send(`Hello World! ${process.env.PORT}`);
 });
 
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));
