@@ -3,16 +3,11 @@ const cors  = require('cors');
 
 
 
-const PORT = process.env.PORT || 3000;
-
+const PORT = process.env.PORT || 8080;
 
 const server = express()
-
-server.get('/', (req, res) => {
-  res.send(`Hello World! ${process.env.PORT}`);
-});
-
-server.listen(PORT, () => console.log(`Listening on ${PORT}`));
+.use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
 // const app = express();
@@ -34,21 +29,19 @@ server.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
 
-let webSocket=require('ws')
 
-var wsPing=new webSocket.Server({server})
+
+const { Server } = require('ws');
+
+const wss = new Server({ server });
+
 
 const clients = new Set()
 
 
-wsPing.on('connection',(socket,req)=>{
-  const url = req.url
-  const params = new URLSearchParams(url.split('?')[1])
-  const id = params.get('id')
+wss.on('connection',(socket,req)=>{
   clients.add(socket)
-
-  
-  
+  console.log(socket)
   socket.on('message', (deserialized_data)=> {
     clients.forEach(client => {
       if(client !== socket){
